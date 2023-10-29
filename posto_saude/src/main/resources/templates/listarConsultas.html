@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Posto de Saúde Web</title>
+	<link rel="shortcut icon" type="image/svg" th:href="@{/img/logo.svg}" />
+	<link th:href="@{/styles/listarConsultas.css}" rel="stylesheet" />
+	<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<link rel="stylesheet" type="text/css"
+		href="https://cdnjs.cloudflare.com/ajax/libs/tooltipster/3.3.0/css/tooltipster.min.css">
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/tooltipster/3.3.0/js/jquery.tooltipster.min.js"></script>
+</head>
+
+<body>
+	<a th:href="@{'/'}" class="navigation">
+		<img alt="arrow" th:src="@{/img/back_arrow.svg}"/>
+		Home
+	</a>
+	
+	<img title="Exportar dados da tabela para excel" id="excel_icon" alt="excel" onclick="ExportToExcel('xlsx')"
+		th:src="@{/img/excel_icon.svg}">
+
+	<h1>Listagem de consultas</h1>
+	<table id="table">
+		<tr>
+			<th>Data e hora</th>
+			<th>Observação</th>
+			<th>Paciente</th>
+			<th>CPF</th>
+			<th>Médico</th>
+			<th>CRM</th>
+			<th>Situação</th>
+		</tr>
+		<tr th:each="consulta : ${consultas}">
+
+			<td th:class="${consulta.data_hora == null} ? 'empty_data' : ''"
+				th:text="${#temporals.format(consulta.data_hora, 'dd/MM/yyyy HH:mm') ?: '-'}"></td>
+
+			<td th:class="${consulta.observacao == '' ? 'empty_data' : ''}" th:text="${consulta.observacao}"></td>
+
+			<td th:class="${consulta.paciente.nome == '' ? 'empty_data' : ''}"
+    			th:text="${consulta.paciente.nome + ' ' + consulta.paciente.sobrenome}"></td>
+    
+			<td th:class="${consulta.paciente.cpf == '' ? 'empty_data' : ''}" th:text="${consulta.paciente.cpf}"></td>
+
+			<td th:class="${consulta.medico.nome == '' ? 'empty_data' : ''}"
+				th:text="${consulta.medico.nome + ' ' + consulta.medico.sobrenome}"></td>
+				
+			<td th:class="${consulta.medico.crm == '' ? 'empty_data' : ''}" th:text="${consulta.medico.crm}"></td>
+
+			<td>
+				<form th:action="@{'/atualizarSituacao/' + ${consulta.id}}" method="post">
+					<select name="situacao">
+						<option value="agendada" th:selected="${consulta.situacao == 'agendada'}">Agendada</option>
+						<option value="cancelada" th:selected="${consulta.situacao == 'cancelada'}">Cancelada</option>
+						<option value="realizada" th:selected="${consulta.situacao == 'realizada'}">Realizada</option>
+					</select>
+					<button type="submit">Atualizar situação</button>
+				</form>
+			</td>
+
+		</tr>
+	</table>
+	<br>
+	<p th:if="${erro}" class="error-message" th:text="${erro}"></p>
+
+</body>
+
+</html>
+
+<script>
+
+	$('#excel_icon').tooltipster({
+		position: 'left',
+		customClass: 'tooltipster'
+	});
+
+	function ExportToExcel(type, fn, dl) {
+		var $elt = $('#table');
+		var wb = XLSX.utils.table_to_book($elt[0], {sheet: "sheet1"});
+
+		if (dl) {
+			var base64data = XLSX.write(wb, {bookType: type, bookSST: true, type: 'base64'});
+			window.location.href = "data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64," + base64data;
+		} else {
+			XLSX.writeFile(wb, fn || ('ListagemDeConsultas.' + (type || 'xlsx')));
+		}
+	}
+</script>

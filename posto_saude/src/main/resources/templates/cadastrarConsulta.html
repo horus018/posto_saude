@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Posto de Saúde Web</title>
+	<link th:href="@{/styles/cadastrarConsulta.css}" rel="stylesheet" />
+	<link rel="shortcut icon" type="image/svg" th:href="@{/img/logo.svg}" />
+</head>
+
+<body>
+	<a th:href="@{'/'}" class="navigation">
+		<img alt="arrow" th:src="@{/img/back_arrow.svg}"/>
+		Home
+	</a>
+
+	<form method="POST" action="cadastrarConsulta">
+
+		<div class="container">
+			<h1>Cadastrar consulta</h1>
+			<div class="content">
+				<label>Data e hora:</label>
+				<input id="data_hora" max="2999-01-01T23:59" th:required="required" type="datetime-local" name="data_hora" />
+			</div>
+
+			<div class="content">
+				<label>Observação:</label>
+				<input th:required="required" type="text" name="observacao" />
+			</div>
+
+			<div class="content">
+				<label>Médicos:</label>
+				<select name="medico.id">
+					<option value="0">Escolha um médico</option>
+					<option th:each="medico : ${medicos}" th:value="${medico.id}" th:text="${medico.nome}">
+					</option>
+				</select>
+			</div>
+
+			<div class="content">
+				<label>Pacientes:</label>
+				<select name="paciente.id">
+					<option value="0">Escolha um paciente</option>
+					<option th:each="paciente : ${pacientes}" th:value="${paciente.id}"
+						th:text="${paciente.nome}">
+					</option>
+				</select>
+			</div>
+
+			<input type="submit" value="Cadastrar" />
+		</div>
+		<p th:if="${erro}" class="error-message" th:text="${erro}"></p>
+	</form>
+	
+</body>
+
+</html>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+        var input = document.getElementById('data_hora');
+        var hoje = new Date().toISOString().slice(0, 16);
+
+        input.min = hoje;
+    });
+</script>

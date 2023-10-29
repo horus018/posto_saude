@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Posto de Saúde Web</title>
+	<link th:href="@{/styles/cadastrarPaciente.css}" rel="stylesheet" />
+	<link rel="shortcut icon" type="image/svg" th:href="@{/img/logo.svg}" />
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.5/jquery.inputmask.min.js"></script>
+</head>
+
+<body>
+	<a th:href="@{'/'}" class="navigation">
+		<img alt="arrow" th:src="@{/img/back_arrow.svg}"/>
+		Home
+	</a>
+
+	<form method="POST" action="cadastrarPaciente">
+		<div class="container">
+			<h1>Cadastrar Paciente</h1>
+			<div class="content">
+				<label>Nome:</label>
+				<input th:required="required" type="text" name="nome" />
+			</div>
+			
+			<div class="content">
+				<label>Sobrenome:</label>
+				<input th:required="required" type="text" name="sobrenome" />
+			</div>
+
+			<div class="content">
+				<label>Celular:</label>
+				<input th:required="required" type="text" name="celular" />
+			</div>
+
+			<div class="content">
+				<label>Email:</label>
+				<input th:required="required" type="text" name="email" />
+			</div>
+
+			<div class="content">
+				<label>Data Nascimento:</label>
+				<input id="data" th:required="required" type="date" name="data_nascimento" />
+			</div>
+
+			<div class="content">
+				<label>CPF:</label>
+				<input th:required="required" type="text" name="cpf" />
+			</div>
+
+			<div class="content">
+				<label>Nome de Emergência:</label>
+				<input th:required="required" type="text" name="nome_emergencia" />
+			</div>
+
+			<div class="content">
+				<label>Telefone de Emergência:</label>
+				<input th:required="required" type="text" name="telefone_emergencia" />
+			</div>
+
+			<div class="content">
+				<label>Logradouro:</label>
+				<input th:required="required" type="text" name="endereco.logradouro" />
+			</div>
+
+			<div class="content">
+				<label>Número:</label>
+				<input th:required="required" type="number" name="endereco.numero" />
+			</div>
+
+			<div class="content">
+				<label>CEP:</label>
+				<input th:required="required" type="text" name="endereco.cep" />
+			</div>
+
+			<div class="content">
+				<label>Bairro:</label>
+				<input th:required="required" type="text" name="endereco.bairro" />
+			</div>
+
+			<div class="content">
+				<label>Complemento:</label>
+				<input th:required="required" type="text" name="endereco.complemento" />
+			</div>
+
+			<div class="content">
+				<input th:required="required" type="submit" value="Cadastrar" />
+			</div>
+		</div>
+
+	</form>
+</body>
+
+</html>
+
+<script>
+	$(document).ready(function () {
+		$('input[name="cpf"]').inputmask('999.999.999-99');
+		$('input[name="celular"], input[name="telefone_emergencia"]').inputmask('(99) 99999-9999');
+	});
+	
+	document.addEventListener('DOMContentLoaded', function () {
+        var input = document.getElementById('data');
+        var hoje = new Date().toISOString().split('T')[0];
+
+        input.max = hoje;
+    });
+</script>

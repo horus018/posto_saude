@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+	<link href='https://fonts.googleapis.com/css?family=Mukta' rel='stylesheet' type='text/css'>
+	<link th:href="@{/styles/index.css}" rel="stylesheet" />
+	<meta charset="UTF-8">
+	<title>Posto de Saúde Web</title>
+	<link rel="shortcut icon" type="image/svg" th:href="@{/img/logo.svg}" />
+</head>
+
+<body>
+
+	<div class="img">
+
+		<div class="geral">
+
+			<img alt="Logo" th:src="@{/img/logo.png}" class="logo">
+			<div class="navbar">
+
+				<section class="buttons">
+
+					<div class="container">
+
+						<h3>Médicos</h3>
+						<a th:href="@{'/cadastrarMedico'} " class="btn btn-5">Cadastro
+							de médicos</a> <a th:href="@{'/listarMedicos'}" class="btn btn-5">Listagem
+							de médicos</a>
+					</div>
+					<div class="container">
+						<h3>Pacientes</h3>
+						<a th:href="@{'/cadastrarPaciente'}" class="btn btn-5">Cadastro
+							de Pacientes</a> <a th:href="@{'/listarPacientes'}" class="btn btn-5">Listagem
+							de Pacientes</a>
+					</div>
+					<div class="container">
+						<h3>Consultas</h3>
+						<a th:href="@{'/cadastrarConsulta'}" class="btn btn-5">Cadastro
+							de Consultas</a> <a th:href="@{'/listarConsultas'}" class="btn btn-5">Listagem
+							de Consultas</a>
+					</div>
+				</section>
+			</div>
+		</div>
+
+	</div>
+</body>
+
+</html>

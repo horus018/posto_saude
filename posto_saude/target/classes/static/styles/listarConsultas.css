@@ -1,0 +1,123 @@
+html {
+	height: 100vh;
+	font-family: system-ui;
+}
+
+h1 {
+	display: flex;
+	justify-content: center;
+	color: #004cff;
+	margin-top: 0;
+}
+
+.empty_data::before {
+	content: "Não informado";
+	color: #bdbdbd;
+}
+
+table {
+	font-family: Arial, Helvetica, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+table td,
+table th {
+	border: 1px solid #ddd;
+	padding: 8px;
+}
+
+table tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+table tr:hover {
+	background-color: rgba(0, 140, 255, .2);
+}
+
+table th {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: left;
+	background-color: #004cff;
+	color: white;
+}
+
+.navigation {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	display: flex;
+	gap: 3px;
+	background: #004cff;
+	padding: 5px 10px;
+	border-radius: 20px;
+	transition: .3s;
+	color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.navigation img {
+	filter: invert(1);
+}
+
+.navigation:hover {
+	background-color: #004cff9c;
+}
+
+.error-message {
+	color: red;
+	margin-top: 0;
+}
+
+#excel_icon {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	height: 36px;
+	width: auto;
+	transition: .3s;
+	cursor: pointer;
+}
+
+#excel_icon:hover {
+	filter: opacity(0.5);
+}
+
+button[type="submit"] {
+	height: 24px;
+	border-radius: 8px;
+	background: #004cff;
+	color: white;
+	font-size: 12px;
+	box-shadow: 2px 2px 3px #00000045;
+	cursor: pointer;
+	transition: .3s;
+	border: none;
+}
+
+button[type="submit"]:hover {
+	box-shadow: none;
+	background-color: #004cff9c;
+}
+
+
+button:focus {
+	border: none;
+}
+
+select {
+	border-radius: 8px;
+	border: none;
+	padding: 2px 5px;
+	margin: 0 6px 0 10px;
+	font-size: 11px;
+	color: gray;
+	border: 1px solid;
+	height: 30px;
+}
+
+option {
+	font-size: 12px;
+}
